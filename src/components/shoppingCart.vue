@@ -33,7 +33,7 @@ export default {
     return {
       dialogVisible: false,
       selectedItemIndex: null,
-      newQuantity: '', // Use newQuantity to bind the input value
+      newQuantity: '', 
     };
   },
   props: {
@@ -45,7 +45,7 @@ export default {
   computed: {
     total() {
       if (this.cart.length === 0) {
-        return 0; // Return 0 if the cart is empty
+        return 0; 
       }
       return this.cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
     },
@@ -53,46 +53,49 @@ export default {
   methods: {
     openDialog(index) {
       this.selectedItemIndex = index;
-      // Initialize newQuantity to the quantity of the selected item
-      this.newQuantity = this.cart[index].quantity.toString(); // Set as string to handle empty input
+      this.newQuantity = this.cart[index].quantity.toString(); 
       this.dialogVisible = true;
     },
     closeDialog() {
       this.dialogVisible = false;
     },
     updateQuantity(index) {
-      // Parse the input value as an integer directly within the input handler
       const newQuantity = parseInt(this.newQuantity);
-
-      // Check if the parsed value is a valid integer and non-negative
       if (!isNaN(newQuantity) && newQuantity >= 0) {
-        // Emit an event to notify the parent component about the quantity update
+        
         this.$emit('update-quantity', { index, quantity: newQuantity });
-        // Close the dialog
         this.closeDialog();
+        alert("Successfully Updated");
       } else {
-        // Show an alert if the input is not valid
         alert('Please enter a valid non-negative integer!');
       }
     },
     removeFromCart(index) {
-      this.$emit('remove-from-cart', index);
+      const validation = confirm("Are you sure you want to remove?");
+
+      if(validation == true)
+      {
+        alert("Successfully Removed!");
+        this.$emit('remove-from-cart', index);
+      } else {
+        return;
+      }      
     },
   },
 };
 </script>
 
 <style scoped>
+
 .cart {
   margin-top: 20px;
 }
 
 .cart-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  text-align: center;
   padding: 10px;
-  border-bottom: 1px solid #ccc;
+  border: 2px solid #ccc;
+  border-radius: 10px;
 }
 
 .item-details {
@@ -105,19 +108,30 @@ export default {
 }
 
 .btn_update {
+  margin-top: 13px;
+  margin-left: 45%;
+  font-family:'Franklin Gothic Medium';
+  font-size: 90%;
+  padding: 20px 20px;
   background-color: yellow;
   border: none;
   border-radius: 20px;
   padding: 10px;
-  color: red;
+  color: rgb(206, 64, 64);
+  box-shadow: 10px 10px 10px 0px rgba(0,0,0,0.5);
 }
 
 .btn_delete {
+  margin-top: 15px;
+  font-family:'Franklin Gothic Medium';
+  font-size: 90%;
+  padding: 20px 20px;
   background-color: rgb(179, 96, 96);
   border: none;
   border-radius: 20px;
   padding: 10px;
   color: white;
+  box-shadow: 10px 10px 10px 0px rgba(0,0,0,0.5);
 }
 
 .item-quantity {
@@ -138,6 +152,8 @@ button {
 }
 
 .total {
+  border: 5px solid #080808;
+  border-radius: 10px;
   font-size: 18px;
   font-weight: bold;
   margin-top: 20px;

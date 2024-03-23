@@ -3,7 +3,7 @@
       <h1 style="text-align: center;">LIST</h1>
       <item-list @add-to-cart="addToCart"></item-list>
   
-      <h1 style="text-align: center ; padding-top: 20px; color: orange;">SHOPPING CART</h1>
+      <h1 style="text-align: center ; padding-top: 20px; padding-left: 160px; color: orange;">SHOPPING CART</h1>
       <shopping-cart :cart="cart" @update-quantity="updateQuantity" @remove-from-cart="removeFromCart"></shopping-cart>
   
       <button class="logout-button" @click="logout">LOGOUT</button>
@@ -51,9 +51,11 @@
   </script>
   
   <style scoped>
+  
   .logout-button {
    float: right;
-
+   font-family:'Franklin Gothic Medium';
+   font-size: 30px;
     bottom: 20px;
     right: 20px;
     background-color: #ff5722;
@@ -62,6 +64,7 @@
     border-radius: 5px;
     padding: 10px 20px;
     cursor: pointer;
+    box-shadow: 10px 10px 10px 0px rgba(0,0,0,0.5);
   }
   
   .logout-button:hover {
